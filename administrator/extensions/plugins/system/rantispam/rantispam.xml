@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="1.6" method="upgrade" type="plugin" group="system">
+<name>System - RAntiSpam</name>
+<author>Ratmil Torres</author>
+<creationDate>March, 2016</creationDate>
+<version>3.3.9</version>
+<license>GNU GPL</license>
+<copyright>(c) 2009 Ratmil Torres</copyright>
+<description>Protects against spam.</description>
+<files>
+<filename plugin="rantispam">rantispam.php</filename>
+</files>
+</extension>

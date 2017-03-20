@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="component" version="1.6.0" method="upgrade">
+    <name>com_rantispam</name>
+    <creationDate>March, 2016</creationDate>
+    <copyright>Copyright (C) 2013. All rights reserved.</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <author>Ratmil</author>
+    <authorEmail>ratmil_torres@yahoo.com</authorEmail>
+    <authorUrl>http://www.ratmilwebsolutions.com</authorUrl>
+    <version>3.4.0</version>
+    <description>Component to fight spam in forums</description>
+    <scriptfile>install.rantispam.php</scriptfile>
+    <install> <!-- Runs on install -->
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+    <uninstall> <!-- Runs on uninstall -->
+        <sql>
+            <file driver="mysql" charset="utf8">sql/uninstall.mysql.utf8.sql</file>
+        </sql>
+    </uninstall>
+
+    <files folder="site">
+        <filename>index.html</filename>
+        <filename>rantispam.php</filename>
+        <filename>controller.php</filename>
+        <filename>router.php</filename>
+        <folder>views</folder>
+        <folder>models</folder>
+        <folder>controllers</folder>
+        <folder>helpers</folder>
+    </files>
+    <languages folder="site">
+        <language tag="en-GB">language/en-GB.com_rantispam.ini
+        </language>
+    </languages>
+    <administration>
+        <menu img="components/com_rantispam/assets/images/s_com_rantispam.png" >COM_RANTISPAM</menu>
+        <submenu>
+			<menu link="option=com_rantispam&amp;view=spams" view="spams" alt="Rantispam/Spams">COM_RANTISPAM_TITLE_SPAMS</menu>
+			<menu link="option=com_rantispam&amp;view=bannedips" view="bannedips" alt="Rantispam/Bannedips">COM_RANTISPAM_TITLE_BANNEDIPS</menu>
+			<menu link="option=com_rantispam&amp;view=about" view="about" alt="Rantispam/About">COM_RANTISPAM_TITLE_ABOUT</menu>
+        </submenu>
+        <files folder="administrator">
+            <filename>access.xml</filename>
+            <filename>config.xml</filename>
+            <filename>controller.php</filename>
+            <filename>index.html</filename>
+            <filename>rantispam.php</filename>
+            <folder>controllers</folder>
+            <folder>assets</folder>
+            <folder>helpers</folder>
+            <folder>models</folder>
+			<folder>builtinplugins</folder>
+			<folder>classes</folder>
+			<folder>data</folder>
+            <folder>sql</folder>
+            <folder>tables</folder>
+            <folder>views</folder>
+			<folder>extensions</folder>
+        </files>
+        <languages folder="administrator">
+
+			<language tag="en-GB">language/en-GB.com_rantispam.ini</language>
+			<language tag="en-GB">language/en-GB.com_rantispam.sys.ini</language>
+        </languages>
+    </administration>
+</extension>
+<!-- Component built by the Joomla Component Creator -->
+<!-- http://www.notwebdesign.com/joomla-component-creator/ -->

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<access component="com_rantispam">
+	<section name="component">
+	<action name="core.admin" title="JACTION_ADMIN" description="JACTION_ADMIN_COMPONENT_DESC" />
+	<action name="core.manage" title="JACTION_MANAGE" description="JACTION_MANAGE_COMPONENT_DESC" />
+	<action name="forum.manage" title="COM_RANTISPAM_MODERATE_FORUM" description="COM_RANTISPAM_MODERATE_FORUM_DESC" />
+	<action name="forum.submitanything" title="COM_RANTISPAM_SUBMIT_ANYTHING" description="COM_RANTISPAM_SUBMIT_ANYTHING_DESC" />
+	</section>
+    
+</access>
