@@ -86,7 +86,7 @@ class KunenaPlugin
                      */
 
 
-                    $regexp = '/(<a id="btn_report" class="btn pull-right" href="#report([0-9]*)" rel="nofollow" title="[^"]*" name="report" [^>]*>\s*<i class="icon icon-flag"><\/i>[^<]*<\/a>)/';
+                    $regexp = '/(<a id="btn_report" class="btn pull-right" href="#report([0-9]*)"[^>]*>\s*<i class="icon icon-flag"><\/i>[^<]*<\/a>)/';
 
                     $body = preg_replace_callback($regexp, array("KunenaPlugin", "replaceCallBack"), $body);
                 }
@@ -105,14 +105,12 @@ class KunenaPlugin
     static function replaceCallBack($s)
     {
         $db = JFactory::getDBO();
-        $message_id = (int)$s[1];
-        $query = "SELECT #__kunena_messages.id, #__kunena_messages.subject,
-            #__kunena_messages_text.message
-            FROM
-            #__kunena_messages
-            INNER JOIN #__kunena_messages_text
-            ON #__kunena_messages_text.mesid = #__kunena_messages.id
-			WHERE #__kunena_messages.id = " . $message_id;
+        $query = $db->getQuery(true);
+        $message_id = (int) $s[2];
+        $query->select('km.id, km.subject, kt.message')
+            ->from('#__kunena_messages km')
+            ->innerJoin('#__kunena_messages_text kt ON kt.mesid = km.id')
+                  ->where('km.id ='.$db->quote($message_id));
         $db->setQuery($query);
         $message = $db->loadObject();
         $text = $message->subject . " " . $message->message;
