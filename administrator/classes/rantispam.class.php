@@ -72,7 +72,7 @@ class RAntispamFilter extends SpamDetector
 
             foreach ($aRegexExpressions as $sRegexExpression){
                 $words_count = (preg_match($sRegexExpression, $text, $words));
-                if (count($words[0]) > 0 ){
+                if (count($words) > 0 ){
                     return true;
                 }
             }
