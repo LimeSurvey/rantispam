@@ -65,7 +65,7 @@ class RAntispamFilter extends SpamDetector
     public function compareWithRegex($text)
     {
         $params = JComponentHelper::getParams('com_rantispam');
-        $sRegexExpressions = $params->get('regexFunctions', false);
+        $sRegexExpressions = $params->get('regular_expressions', false);
 
         if ($sRegexExpressions){
             $aRegexExpressions = explode("/\\r\\n|\\r|\\n/", $sRegexExpressions);
@@ -73,11 +73,11 @@ class RAntispamFilter extends SpamDetector
             foreach ($aRegexExpressions as $sRegexExpression){
                 $words_count = (preg_match($sRegexExpression, $text, $words));
                 if (count($words[0]) > 0 ){
-                    return 1;
+                    return true;
                 }
             }
-
         }
+
         return false;
     }
 
