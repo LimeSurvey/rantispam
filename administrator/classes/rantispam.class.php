@@ -23,7 +23,8 @@ class RAntispamFilter extends SpamDetector
 
     public function test($text)
     {
-        $words_count = preg_match_all('/([a-zA-Z]\w+)\W*/', $text, $words);
+        //$words_count = preg_match_all('/([a-zA-Z]\w+)\W*/', $text, $words);
+        $words_count = preg_match_all('/([a-zA-Z\pL]\w+)\W*/', $text, $words);
         $tokens = $this->getTokensProb($words[1]);
         $tokens_prob = array();
         foreach($words[1] as $word)
@@ -117,7 +118,8 @@ class RAntispamFilter extends SpamDetector
     {
         if($this->isTextCalculated($text))
             return false;
-        $words_count = preg_match_all('/([a-zA-Z]\w+)\W*/', $text, $matches);
+        //$words_count = preg_match_all('/([a-zA-Z]\w+)\W*/', $text, $matches);
+        $words_count = preg_match_all('/([a-zA-Z\pL]\w+)\W*/', $text, $words);
         $words = array();
         $tokens_count = $this->getTokensCount();
         if(!$tokens_count)
@@ -169,7 +171,8 @@ class RAntispamFilter extends SpamDetector
     {
         if(!$this->removeFromCalculatedText($text))
             return;
-        $words_count = preg_match_all('/([a-zA-Z]\w+)\W*/', $text, $matches);
+        //$words_count = preg_match_all('/([a-zA-Z]\w+)\W*/', $text, $matches);
+        $words_count = preg_match_all('/([a-zA-Z\pL]\w+)\W*/', $text, $words);
         $words = array();
         $tokens_count = $this->getTokensCount();
         if(!$tokens_count)
