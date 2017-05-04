@@ -1,137 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config addfieldpath="/administrator/components/com_rantispam/models/fields">
-	<fieldset name="component"
-		label="COM_RANTISPAM_COMPONENT_LABEL"
-		description="COM_RANTISPAM_COMPONENT_DESC"
-		
-	>
-		<field 
-			name="spam_threshold"
-			type="text" 
-			size="20" default="0.95" 
-			class="inputbox validate-numeric"
-			label="COM_RANTISPAM_THRESHOLD" 
-			description="COM_RANTISPAM_THRESHOLD_DESC" 
-			/>
-		<field
-			name="remove_back_link"
-			type="radio"
-			class="btn-group"
-			default="1"
-			label="COM_RANTISPAM_REMOVE_BACK_LINK" 
-			description="COM_RANTISPAM_REMOVE_BACK_LINK_DESC" >
-			<option value="0">JNO</option>
+    <fieldset name="component"
+        label="COM_RANTISPAM_COMPONENT_LABEL"
+        description="COM_RANTISPAM_COMPONENT_DESC"
+
+    >
+        <field
+            name="spam_threshold"
+            type="text"
+            size="20" default="0.95"
+            class="inputbox validate-numeric"
+            label="COM_RANTISPAM_THRESHOLD"
+            description="COM_RANTISPAM_THRESHOLD_DESC"
+            />
+        <field
+            name="remove_back_link"
+            type="radio"
+            class="btn-group"
+            default="1"
+            label="COM_RANTISPAM_REMOVE_BACK_LINK"
+            description="COM_RANTISPAM_REMOVE_BACK_LINK_DESC" >
+            <option value="0">JNO</option>
             <option value="1">JYES</option>
-		</field>
-		<field
-			name="block_spammers"
-			type="radio"
-			class="btn-group"
-			default="0"
-			label="COM_RANTISPAM__AUTOMATIC_BLOCK_SPAMMERS" 
-			description="COM_RANTISPAM__AUTOMATIC_BLOCK_SPAMMERS_DESC" >
-			<option value="0">JNO</option>
+        </field>
+        <field
+            name="block_spammers"
+            type="radio"
+            class="btn-group"
+            default="0"
+            label="COM_RANTISPAM__AUTOMATIC_BLOCK_SPAMMERS"
+            description="COM_RANTISPAM__AUTOMATIC_BLOCK_SPAMMERS_DESC" >
+            <option value="0">JNO</option>
             <option value="1">JYES</option>
-		</field>
-		<field
-			name="block_ip"
-			type="radio"
-			class="btn-group"
-			default="0"
-			label="COM_RANTISPAM__AUTOMATIC_BLOCK_IP" 
-			description="COM_RANTISPAM__AUTOMATIC_BLOCK_IP_DESC" >
-			<option value="0">JNO</option>
+        </field>
+        <field
+            name="block_ip"
+            type="radio"
+            class="btn-group"
+            default="0"
+            label="COM_RANTISPAM__AUTOMATIC_BLOCK_IP"
+            description="COM_RANTISPAM__AUTOMATIC_BLOCK_IP_DESC" >
+            <option value="0">JNO</option>
             <option value="1">JYES</option>
-		</field>
-		<field
-			name="check_kunena"
-			type="radio"
-			class="btn-group"
-			default="1"
-			label="COM_RANTISPAM_USE_KUNENA" 
-			description="COM_RANTISPAM_USE_KUNENA_DESC" >
-			<option value="0">JNO</option>
+        </field>
+        <field
+            name="check_kunena"
+            type="radio"
+            class="btn-group"
+            default="1"
+            label="COM_RANTISPAM_USE_KUNENA"
+            description="COM_RANTISPAM_USE_KUNENA_DESC" >
+            <option value="0">JNO</option>
             <option value="1">JYES</option>
-		</field>
-		<field
-			name="handle_all_input"
-			type="radio"
-			class="btn-group"
-			default="0"
-			label="COM_RANTISPAM_HANDLE_ALL_INPUT" 
-			description="COM_RANTISPAM_HANDLE_ALL_INPUT_DESC" >
-			<option value="0">JNO</option>
+        </field>
+        <field
+            name="handle_all_input"
+            type="radio"
+            class="btn-group"
+            default="0"
+            label="COM_RANTISPAM_HANDLE_ALL_INPUT"
+            description="COM_RANTISPAM_HANDLE_ALL_INPUT_DESC" >
+            <option value="0">JNO</option>
             <option value="1">JYES</option>
-		</field>
-		<field
-			name="use_plugin"
-			type="radio"
-			class="btn-group"
-			default="0"
-			label="COM_RANTISPAM_USE_PLUGIN" 
-			description="COM_RANTISPAM_USE_PLUGIN_DESC" >
-			<option value="0">JNO</option>
+        </field>
+        <field
+            name="use_plugin"
+            type="radio"
+            class="btn-group"
+            default="0"
+            label="COM_RANTISPAM_USE_PLUGIN"
+            description="COM_RANTISPAM_USE_PLUGIN_DESC" >
+            <option value="0">JNO</option>
             <option value="1">JYES</option>
-		</field>
-		<field
-			name="use_akismet"
-			type="radio"
-			class="btn-group"
-			default="0"
-			label="COM_RANTISPAM_USE_AKISMET" 
-			description="COM_RANTISPAM_USE_AKISMET_DESC" >
-			<option value="0">JNO</option>
+        </field>
+        <field
+            name="use_akismet"
+            type="radio"
+            class="btn-group"
+            default="0"
+            label="COM_RANTISPAM_USE_AKISMET"
+            description="COM_RANTISPAM_USE_AKISMET_DESC" >
+            <option value="0">JNO</option>
             <option value="1">JYES</option>
-		</field>
-		<field name="akismet_key"
+        </field>
+        <field name="akismet_key"
              type="text"
              label="COM_RANTISPAM_AKISMET_KEY"
-             description="COM_RANTISPAM_AKISMET_KEY_DESC" 
-			 size="20"/>
-		<field name="alert_address"
+             description="COM_RANTISPAM_AKISMET_KEY_DESC"
+             size="20"/>
+        <field name="alert_address"
              type="text"
              label="COM_RANTISPAM_EMAIL_ALERT"
-             description="COM_RANTISPAM_EMAIL_ALERT_DESC" 
-			 size="20"/>
-		<field name="alert_subject"
+             description="COM_RANTISPAM_EMAIL_ALERT_DESC"
+             size="20"/>
+        <field name="alert_subject"
              type="text"
              label="COM_RANTISPAM_EMAIL_SUBJECT_ALERT"
-             description="COM_RANTISPAM_EMAIL_SUBJECT_ALERT_DESC" 
-			 size="80"/>
-		<field name="alert_body"
+             description="COM_RANTISPAM_EMAIL_SUBJECT_ALERT_DESC"
+             size="80"/>
+        <field name="alert_body"
              type="textarea"
              label="COM_RANTISPAM_EMAIL_BODY_ALERT"
              description="COM_RANTISPAM_EMAIL_BODY_ALERT_DESC" />
         <field name="denial_text"
              type="wysiwyg"
              label="COM_RANTISPAM_DENIED_TEXT"
-             description="COM_RANTISPAM_DENIED_TEXT_DESC" 
-			 default="Your message has been considered spam"
-			 filter="raw"/>
-		<field name="banned_text"
+             description="COM_RANTISPAM_DENIED_TEXT_DESC"
+             default="Your message has been considered spam"
+             filter="raw"/>
+        <field name="banned_text"
              type="wysiwyg"
              label="COM_RANTISPAM_BANNED_TEXT"
              description="COM_RANTISPAM_BANNED_TEXT_DESC"
-			 default="You are banned from this site"
-			 filter="raw"/>
+             default="You are banned from this site"
+             filter="raw"/>
 
-	</fieldset>
+    </fieldset>
 
-	<fieldset name="permissions"
-		description="JCONFIG_PERMISSIONS_DESC"
-		label="JCONFIG_PERMISSIONS_LABEL"
-	>
+    <fieldset name="permissions"
+        description="JCONFIG_PERMISSIONS_DESC"
+        label="JCONFIG_PERMISSIONS_LABEL"
+    >
 
-		<field 
-            name="rules" 
+        <field
+            name="rules"
             type="rules"
-			component="com_rantispam"
+            component="com_rantispam"
             class="inputbox"
-			filter="rules"
-			validate="rules"
-			label="JCONFIG_PERMISSIONS_LABEL"
-			section="component" />
-	</fieldset>
+            filter="rules"
+            validate="rules"
+            label="JCONFIG_PERMISSIONS_LABEL"
+            section="component" />
+    </fieldset>
 
 </config>
 <!--
