@@ -24,6 +24,11 @@ class RAntispamFilter extends SpamDetector
     public function test($text)
     {
         //$words_count = preg_match_all('/([a-zA-Z]\w+)\W*/', $text, $words);
+
+        if ($this->compareWithRegex($text)){
+            return 1;
+        }
+
         $words_count = preg_match_all('/([a-zA-Z\pL]\w+)\W*/', $text, $words);
         $tokens = $this->getTokensProb($words[1]);
         $tokens_prob = array();
@@ -55,6 +60,25 @@ class RAntispamFilter extends SpamDetector
             return $mult / ($mult + $comb);
         else
             return 0;
+    }
+
+    public function compareWithRegex($text)
+    {
+        $params = JComponentHelper::getParams('com_rantispam');
+        $sRegexExpressions = $params->get('regexFunctions', false);
+
+        if ($sRegexExpressions){
+            $aRegexExpressions = explode("/\\r\\n|\\r|\\n/", $sRegexExpressions);
+
+            foreach ($aRegexExpressions as $sRegexExpression){
+                $words_count = (preg_match($sRegexExpression, $text, $words));
+                if (count($words[0]) > 0 ){
+                    return 1;
+                }
+            }
+
+        }
+        return false;
     }
 
     function compare_token($token1, $token2)
