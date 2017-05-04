@@ -117,7 +117,7 @@
 
         <field name="regular_expressions"
             type="textarea"
-            label="Regular expressions"
+            label="Forbidden expressions"
             description="those regex will be used to check if a message is a spam. (one by line)" />
 
     </fieldset>
