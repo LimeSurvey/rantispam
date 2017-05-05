@@ -25,6 +25,16 @@ class RAntispamFilter extends SpamDetector
     {
         //$words_count = preg_match_all('/([a-zA-Z]\w+)\W*/', $text, $words);
 
+        /*
+            $user = JFactory::getUser();
+            if($user->name == "testabc"){
+
+                if ($this->compareWithRegex($text)){
+                    //            return 1;
+                }
+            }
+        */
+
         if ($this->compareWithRegex($text)){
             return 1;
         }
@@ -68,14 +78,56 @@ class RAntispamFilter extends SpamDetector
         $sRegexExpressions = $params->get('regular_expressions', false);
 
         if ($sRegexExpressions){
-            $aRegexExpressions = explode("/\\r\\n|\\r|\\n/", $sRegexExpressions);
+            $aRegexExpressions = explode(PHP_EOL, $sRegexExpressions);
+
+            /*
+                // $user = JFactory::getUser();
+                if($user->name == "testabc"){
+                    echo "<br/> aRegexExpressions: ";
+                    var_dump($aRegexExpressions);
+                }
+            */
 
             foreach ($aRegexExpressions as $sRegexExpression){
-                $words_count = (preg_match($sRegexExpression, $text, $words));
-                if (count($words) > 0 ){
-                    return true;
+
+                $sRegexExpression = trim($sRegexExpression);
+
+                if ($sRegexExpression != ''){
+
+                    $words_count = (preg_match('/'.$sRegexExpression.'/', $text, $words));
+
+                    /*
+                    if($user->name == "testabc"){
+                        echo mb_internal_encoding();
+
+                        echo "<br>regex:";
+                        var_dump($sRegexExpression);
+                        echo "<br>text:";
+                        var_dump($text);
+                        echo "match:";
+                        var_dump($words);
+                        echo "count match:";
+                        var_dump(count($words));
+                    }
+                    */
+
+                    /*
+                        if($user->name != "testabc"){
+                    */
+                        if (count($words) > 0 ){
+                            return true;
+                        }
+                    /*
+                    }
+                    */
                 }
+
             }
+            /*
+            if($user->name == "testabc"){
+                die();
+            }
+            */
         }
 
         return false;
