@@ -27,7 +27,8 @@ class RAntispamFilter extends SpamDetector
             return 1;
         }
 
-        $words_count = preg_match_all('/([a-zA-Z\pL]\w+)\W*/', $text, $words);
+        // This regex needs a UTF8 table
+        $words_count = preg_match_all('/([a-zA-Z\pL]\w+)\W*/u', $text, $words);
         $tokens = $this->getTokensProb($words[1]);
         $tokens_prob = array();
         foreach($words[1] as $word)
@@ -69,20 +70,20 @@ class RAntispamFilter extends SpamDetector
             $aRegexExpressions = explode(PHP_EOL, $sRegexExpressions);
 
             foreach ($aRegexExpressions as $sRegexExpression){
-
                 $sRegexExpression = trim($sRegexExpression);
 
                 if ($sRegexExpression != ''){
+                $words_count = (preg_match('/'.$sRegexExpression.'/', $text, $words));
 
-                    $words_count = (preg_match('/'.$sRegexExpression.'/', $text, $words));
 
-                    if (count($words) > 0 ){
-                        return true;
-                    }
+                if (count($words) > 0 ){
+                    return true;
                 }
+
+                }
+
             }
         }
-
         return false;
     }
 
@@ -133,6 +134,8 @@ class RAntispamFilter extends SpamDetector
         $db->setQuery("SELECT COUNT(*) FROM #__rantispam_messages_hash
             WHERE hash='$hash'");
         $result = $db->loadResult();
+
+
         if($result == 0)
         {
             $db->setQuery("INSERT INTO #__rantispam_messages_hash(hash) VALUES('$hash')");
@@ -145,18 +148,23 @@ class RAntispamFilter extends SpamDetector
 
     function learn($text, $isSpam)
     {
+
         if($this->isTextCalculated($text))
             return false;
-        //$words_count = preg_match_all('/([a-zA-Z]\w+)\W*/', $text, $matches);
-        $words_count = preg_match_all('/([a-zA-Z\pL]\w+)\W*/', $text, $words);
+
+        // This regex needs a UTF8 table
+        // WARNING! $matches, not $words
+        $words_count = preg_match_all('/([a-zA-Z\pL]\w+)\W*/u', $text, $matches);
         $words = array();
         $tokens_count = $this->getTokensCount();
+
         if(!$tokens_count)
         {
             $tokens_count = new stdClass();
             $tokens_count->good_count = 0;
             $tokens_count->bad_count = 0;
         }
+
         foreach($matches[1] as $match)
         {
             if(array_key_exists($match, $words))
@@ -166,6 +174,7 @@ class RAntispamFilter extends SpamDetector
             else
                 $words[$match] = 1;
         }
+
         foreach($words as $token => $count)
         {
             if($isSpam)
@@ -200,8 +209,10 @@ class RAntispamFilter extends SpamDetector
     {
         if(!$this->removeFromCalculatedText($text))
             return;
-        //$words_count = preg_match_all('/([a-zA-Z]\w+)\W*/', $text, $matches);
-        $words_count = preg_match_all('/([a-zA-Z\pL]\w+)\W*/', $text, $words);
+
+        // This regex needs a UTF8 table
+        // WARNING! $matches, not $words
+        $words_count = preg_match_all('/([a-zA-Z\pL]\w+)\W*/u', $text, $matches);
         $words = array();
         $tokens_count = $this->getTokensCount();
         if(!$tokens_count)
