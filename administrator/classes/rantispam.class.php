@@ -10,7 +10,7 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 
 define("GoodTokenWeight", 2);
 define("MinTokenCount", 0);
-define("MinCountForInclusion", 5);
+define("MinCountForInclusion", 2);
 define("MinScore", 0.011);
 define("MaxScore", 0.99);
 define("LikelySpamScore", 0.9998);
