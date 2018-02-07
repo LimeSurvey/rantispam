@@ -130,7 +130,7 @@ class  plgSystemRAntiSpam extends JPlugin
 			{
 				$func = JFactory::getApplication()->input->get('func');
 				$task = JFactory::getApplication()->input->get('task');
-				if($func == 'post' || $task == 'post')
+				if($func == 'post' || $task == 'post' || $task == 'edit')
 				{
 					$message = JRequest::getVar( 'message', '', 'post','string', JREQUEST_ALLOWRAW );
 					if($message)
