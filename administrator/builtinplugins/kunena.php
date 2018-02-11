@@ -14,7 +14,7 @@ class KunenaPlugin
     {
         $func = JRequest::getVar('func');
         $task = JRequest::getVar('task');
-        if ($func == 'post' || $task == 'post') {
+        if ($func == 'post' || $task == 'post' || $task == 'edit') {
             $db = JFactory::getDBO();
             $message = JRequest::getVar('message', '', 'post', 'string', JREQUEST_ALLOWRAW);
             if (!$message) {
@@ -115,10 +115,24 @@ class KunenaPlugin
         $message = $db->loadObject();
         $text = $message->subject . " " . $message->message;
         $spamFilter = SpamFilter::getInstance();
+$user = JFactory::getUser();    
+
+
+
+
         $score = $spamFilter->test($text);
+
+
+        /*
+        if($user->username == "LouisGac"){
+            var_dump($text);  
+            var_dump($score);
+            die();
+        }
+*/
         $button_text = JText::_("COM_RANTISPAM_MARK_AS_SPAM") . " (" . sprintf("%.2f", $score) . ")";
         $targetURL = "index.php?option=com_rantispam&task=spam.report&prov=kunena&id=" . $message_id;
-        $button_code = $s[0] . ' <a href="'.$targetURL.'" class="btn pull-right" rel="nofollow" title="'.JText::_(COM_RANTISPAM_MARK_AS_SPAM).'">'.$button_text.'</a>';
+        $button_code = $s[0] . ' <a href="'.$targetURL.'" class="btn pull-right" rel="nofollow" title="'.JText::_("COM_RANTISPAM_MARK_AS_SPAM").'">'.$button_text.'</a>';
         return $button_code;
     }
 
