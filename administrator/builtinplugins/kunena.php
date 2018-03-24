@@ -140,9 +140,6 @@ $user = JFactory::getUser();
     static function setSpam($message_id, $spamFilter, &$spamObject)
     {
         $db = JFactory::getDBO();
-        $query = "UPDATE #__kunena_messages SET hold=2 WHERE id= " . (int)$message_id;
-        $db->setQuery($query);
-        $db->query();
         $query = "SELECT #__kunena_messages.id, #__kunena_messages.subject,
             #__kunena_messages_text.message, #__kunena_messages.userid,
             #__kunena_messages.ip, #__kunena_messages.name,
@@ -155,6 +152,24 @@ $user = JFactory::getUser();
         $db->setQuery($query);
         $message = $db->loadObject();
         if ($message) {
+            $query = "UPDATE #__kunena_messages SET hold=2 WHERE userid= " . (int)$message->userid;
+            $db->setQuery($query);
+            $db->query();
+            // Soft-delete any topics that contain only one soft-deleted message to prevent the topic from showing up in latest topics
+            $query ="UPDATE #__kunena_topics SET hold=2
+                    WHERE id IN (
+                    SELECT thread
+                    FROM (
+                    SELECT m.thread, hold, COUNT(m.thread)
+                    FROM #__kunena_messages m
+                    GROUP BY m.thread
+                    HAVING COUNT(m.thread)<2 AND hold>0 AND (
+                    SELECT hold
+                    FROM #__kunena_topics
+                    WHERE id=m.thread)=0) AS n)";
+            $db->setQuery($query);
+            $db->query();
+            
             $spamFilter->learn($message->subject . " " . $message->message, true);
             $spamObject = new stdClass();
             $spamObject->user_ip = $message->ip;
