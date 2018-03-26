@@ -29,6 +29,10 @@ class KunenaPlugin
                 if ($spamObject->user_id) {
                     $spamObject->user_name = $user->username;
                     $spamObject->user_Fullname = $user->name;
+                    $query = "UPDATE #__kunena_messages SET hold=2 WHERE userid=" . (int)$spamObject->userid;
+                    $db->setQuery($query);
+                    $db->query();
+                    
                 } else {
                     $spamObject->user_Fullname =
                         $spamObject->user_name = JRequest::getString('authorname');
@@ -152,7 +156,7 @@ $user = JFactory::getUser();
         $db->setQuery($query);
         $message = $db->loadObject();
         if ($message) {
-            $query = "UPDATE #__kunena_messages SET hold=2 WHERE userid= " . (int)$message->userid;
+            $query = "UPDATE #__kunena_messages SET hold=2 WHERE userid=" . (int)$message->userid;
             $db->setQuery($query);
             $db->query();
             // Soft-delete any topics that contain only one soft-deleted message to prevent the topic from showing up in latest topics
@@ -185,6 +189,8 @@ $user = JFactory::getUser();
             $spamObject->param3 = (int)$message->parent_id;
             $spamObject->param4 = '';
             $spamObject->provider = 'kunena';
+            $mainframe = JFactory::getApplication();
+            $mainframe->logout($spamObject->user_id);
             return true;
         }
         return false;
