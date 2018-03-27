@@ -29,10 +29,23 @@ class KunenaPlugin
                 if ($spamObject->user_id) {
                     $spamObject->user_name = $user->username;
                     $spamObject->user_Fullname = $user->name;
-                    $query = "UPDATE #__kunena_messages SET hold=2 WHERE userid=" . (int)$spamObject->userid;
+                    $query = "UPDATE #__kunena_messages SET hold=2 WHERE userid=" . (int)$spamObject->user_id;
                     $db->setQuery($query);
                     $db->query();
-                    
+                    // Soft-delete any topics that contain only one soft-deleted message to prevent the topic from showing up in latest topics
+                    $query ="UPDATE #__kunena_topics SET hold=2
+                            WHERE id IN (
+                            SELECT thread
+                            FROM (
+                            SELECT m.thread, hold, COUNT(m.thread)
+                            FROM #__kunena_messages m
+                            GROUP BY m.thread
+                            HAVING COUNT(m.thread)<2 AND hold>0 AND (
+                            SELECT hold
+                            FROM #__kunena_topics
+                            WHERE id=m.thread)=0) AS n)";
+                    $db->setQuery($query);
+                    $db->query();
                 } else {
                     $spamObject->user_Fullname =
                         $spamObject->user_name = JRequest::getString('authorname');
