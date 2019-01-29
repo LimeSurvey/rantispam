@@ -103,9 +103,15 @@ class KunenaPlugin
                      */
 
 
-                    $regexp = '/(<a id="btn_report" class="btn pull-right" href="#report([0-9]*)"[^>]*>\s*<i class="icon icon-flag"><\/i>[^<]*<\/a>)/';
+                    $regexp = '/(<a id="btn_report" class="btn pull-right kbutton-report"\s*href="#report([0-9]*)"[^>]*>[^<]*<i class="icon icon-flag">[^<]*<\/i>[^<]*<\/a>)/';
 
-                    $body = preg_replace_callback($regexp, array("KunenaPlugin", "replaceCallBack"), $body);
+                    $iCount=0;
+			        /* $user = JFactory::getUser();    
+			        if($user->username == "c_schmitz"){
+			            var_dump($body);  
+			            die();
+			        } */                   
+                    $body = preg_replace_callback($regexp, array("KunenaPlugin", "replaceCallBack"), $body,-1,$iCount);
                 }
             }
             if (!$config->remove_back_link) {
@@ -132,21 +138,15 @@ class KunenaPlugin
         $message = $db->loadObject();
         $text = $message->subject . " " . $message->message;
         $spamFilter = SpamFilter::getInstance();
-$user = JFactory::getUser();    
-
-
-
-
         $score = $spamFilter->test($text);
 
-
-        /*
-        if($user->username == "LouisGac"){
+/*		$user = JFactory::getUser();    
+        if($user->username == "c_schmitz"){
             var_dump($text);  
             var_dump($score);
             die();
-        }
-*/
+        } */
+        
         $button_text = JText::_("COM_RANTISPAM_MARK_AS_SPAM") . " (" . sprintf("%.2f", $score) . ")";
         $targetURL = "index.php?option=com_rantispam&task=spam.report&prov=kunena&id=" . $message_id;
         $button_code = $s[0] . ' <a href="'.$targetURL.'" class="btn pull-right" rel="nofollow" title="'.JText::_("COM_RANTISPAM_MARK_AS_SPAM").'">'.$button_text.'</a>';
